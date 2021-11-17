@@ -1,0 +1,29 @@
+ <div class="row">
+
+
+
+  <div class="list-group col-9" routerLinkActive="active">
+    <a  *ngFor="let x of mycourses | paginate : { itemsPerPage: 5, currentPage: p, totalItems : total }" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h1 class="mb-1">{{ x["id"] }}) {{ x["name"] }}</h1>
+        <button class="btn btn-danger mb-1" (click)="onclick(x['id'])" >Add to Cart</button>
+      </div>
+      <p class="mb-1">Some placeholder content in a paragraph.</p>
+      <small class="text-muted">And some muted small print.</small>
+    </a>
+
+  </div>
+  <div class="col-3 cart">
+    <app-cart></app-cart>
+  </div>
+
+
+</div>
+<div class="row">
+  <div class="col-9 mt-2 pl-0 pr-5">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  <div class="col-3" *ngIf="checksize()">
+      <button class="btn btn-outline-danger" routerLink="/cart">Proceed to Checkout</button>
+  </div>
+</div>
