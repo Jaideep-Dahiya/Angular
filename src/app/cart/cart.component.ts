@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { CourseWishlistService } from '../course-wishlist.service';
 import { coursedata } from '../courses/courses.component';
 
@@ -19,6 +19,7 @@ export class CartComponent implements OnInit {
       console.log(this.cartlist);
     })
   }
+
 
   deleteme(x : string){
     console.log("deleting "+x);

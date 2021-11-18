@@ -8,7 +8,7 @@ import { CourseWishlistService } from '../course-wishlist.service';
 })
 export class WishlistComponent implements OnInit {
   p: number = 1;
-  public wishlist:Record<string,string | boolean>[] = [];
+  public wishlist:Record<string,string | boolean | number>[] = [];
   constructor(private cw : CourseWishlistService) { }
   total = this.wishlist.length;
 collection: any[] = this.wishlist;

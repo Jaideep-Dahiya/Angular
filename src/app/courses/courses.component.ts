@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseWishlistService } from '../course-wishlist.service';
 
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -9,7 +10,8 @@ import { CourseWishlistService } from '../course-wishlist.service';
 export class CoursesComponent implements OnInit {
 
   p: number = 1;
-public mycourses:Record<string,string|boolean>[]=[];
+public mycourses:any=[];
+nulla = 536;
 public newcourses = [
   {id : "1" ,name : "Responsive design course XYZ"},
   {id : "2" ,name : "Responsive design course XYZ"},
@@ -30,12 +32,16 @@ public newcourses = [
 total = this.mycourses.length;
 collection: any[] = this.mycourses;
   constructor(private cw : CourseWishlistService) { }
+cartprice:number = 0;
 
   ngOnInit(): void {
     this.mycourses = this.cw.getCourses();
+    this.cw.$newadded.subscribe((data) => {
+      this.cartarray = this.cw.getcart();
+    })
   }
-
-  public onclick(x : string | boolean){
+  cartarray:coursedata[]=[];
+  public onclick(x : string| number| boolean){
      this.cw.addtocart(x);
   }
 
@@ -43,10 +49,36 @@ collection: any[] = this.mycourses;
     return this.cw.getcart().length != 0;
   }
 
+  public changewish(x : string| number| boolean){
+    console.log(x);
+    this.cw.togglewish(x);
+ }
+
+ discountval(x : number, y:number){
+      return x - (y*0.01*x);
+ }
+ public checkprice(){
+    let total:number = 0;
+    this.cartarray = this.cw.getcart();
+    for(var num=0;num<this.cartarray.length;num++){
+        if(this.cartarray[num].discount == true){
+           total+=this.cartarray[num].price - (0.01*this.cartarray[num].disc_amt*this.cartarray[num].price);
+        }else{
+          total+=this.cartarray[num].price;
+        }
+    }
+    return total;
+
+ }
+
 }
 
 export interface coursedata{
   id : string;
   name : string;
   wish : boolean;
+  price : number;
+  author : string;
+  discount : boolean;
+  disc_amt : number;
 }

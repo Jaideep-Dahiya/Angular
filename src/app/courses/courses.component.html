@@ -4,12 +4,23 @@
 
   <div class="list-group col-9" routerLinkActive="active">
     <a  *ngFor="let x of mycourses | paginate : { itemsPerPage: 5, currentPage: p, totalItems : total }" class="list-group-item list-group-item-action">
-      <div class="d-flex w-100 justify-content-between">
-        <h1 class="mb-1">{{ x["id"] }}) {{ x["name"] }}</h1>
-        <button class="btn btn-danger mb-1" (click)="onclick(x['id'])" >Add to Cart</button>
+      <div class="d-flex w-100 justify-content-between row">
+        <div class="col-8 d-flex justify-content-between">
+          <h1>{{ x["id"] }}) {{ x["name"] }}</h1>
+          <p class="mt-3"><b>{{x["author"]}}</b></p>
+          <button class="btn btn-sm" (click)="changewish(x['id'])" [ngClass]="{'btn-outline-secondary' : x['wish'],'btn-outline-warning' : x['wish']}">Wishlist</button>
+        </div>
+        <div class="col-1 mt-3">
+          <p>{{discountval(x['price'],x['disc_amt']) | currency:'INR'}}</p>
+        </div>
+        <div class="col-1 mt-3">
+          <p><del *ngIf="x['discount']">{{x["price"] | currency:'INR'}}</del></p>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-danger mb-1" (click)="onclick(x['id'])" >Add to Cart</button>
+        </div>
       </div>
-      <p class="mb-1">Some placeholder content in a paragraph.</p>
-      <small class="text-muted">And some muted small print.</small>
+      <p>Some other description of the course.</p>
     </a>
 
   </div>
@@ -23,7 +34,11 @@
   <div class="col-9 mt-2 pl-0 pr-5">
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
-  <div class="col-3" *ngIf="checksize()">
+  <div class="col-1" *ngIf="checksize()">
+    <small>Cart value</small>
+    <h1>Rs {{ checkprice()}}/-</h1>
+  </div>
+  <div class="col-2" *ngIf="checksize()">
       <button class="btn btn-outline-danger" routerLink="/cart">Proceed to Checkout</button>
   </div>
 </div>
