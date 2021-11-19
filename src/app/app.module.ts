@@ -12,6 +12,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { CourseWishlistService } from './course-wishlist.service';
 import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CoursedetailComponent } from './coursedetail/coursedetail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
     WishlistComponent,
     CartComponent,
     ProfileComponent,
+    CoursedetailComponent,
   ],
   imports: [
     BrowserModule,
